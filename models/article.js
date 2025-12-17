@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+const mongoose = require("mongoose");
+const validator = require("validator");
 
 const urlValidator = {
   validator: (url) => validator.isURL(url, { require_protocol: true }),
-  message: 'O link informado é inválido',
+  message: "O link informado é inválido",
 };
 
 const articleSchema = new mongoose.Schema(
@@ -25,7 +25,7 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    fonte: {
+    source: {
       type: String,
       required: true,
     },
@@ -41,14 +41,14 @@ const articleSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
       required: true,
       select: false, // oculta por padrão em consultas
     },
   },
   {
     versionKey: false,
-  },
+  }
 );
 
-module.exports = mongoose.model('article', articleSchema);
+module.exports = mongoose.model("article", articleSchema);
