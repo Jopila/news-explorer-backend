@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const routes = require("./routes");
 const NotFoundError = require("./errors/not-found-error");
 const handleErrors = require("./middlewares/error-handler");
@@ -15,6 +16,7 @@ const app = express();
 
 app.use(express.json());
 app.use(requestLogger);
+app.use(cors());
 
 mongoose.connect(MONGO_URI);
 
