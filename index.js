@@ -7,10 +7,11 @@ const NotFoundError = require("./errors/not-found-error");
 const handleErrors = require("./middlewares/error-handler");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
-const {
-  PORT = 3000,
-  MONGO_URI = "mongodb+srv://marcelomarangoni767_db_user:d7rqy45H6ExkoFYk@cluster0.prse0q9.mongodb.net/news-eplorer?appName=Cluster0",
-} = process.env;
+const { PORT = 3000, MONGO_URI } = process.env;
+
+if (!MONGO_URI || !MONGO_URI.trim()) {
+  throw new Error("MONGO_URI deve ser configurada no ambiente ou no arquivo .env");
+}
 
 const app = express();
 
@@ -30,3 +31,4 @@ app.use(handleErrors);
 app.listen(PORT, () => {
   console.log(`Servidor iniciado na porta ${PORT}`);
 });
+

@@ -15,12 +15,26 @@ API do projeto News Explorer. Fornece cadastro, login e gerenciamento de artigos
 - `npm install`
 - `npm run dev` (nodemon)
 - `npm start`
+- `npm test` (testes de configuracao sem acesso ao banco)
 
 ## Variaveis de ambiente
 - `PORT` (padrao: 3000)
-- `MONGO_URI` (string de conexao do MongoDB)
+- `MONGO_URI` (obrigatoria: string de conexao do MongoDB, sem valor padrao)
 - `JWT_SECRET` (usado quando `NODE_ENV=production`)
 - `NODE_ENV` (development/production)
+
+Antes de iniciar, configure `MONGO_URI` no ambiente ou em um arquivo `.env`
+local (ignorado pelo Git). Para um MongoDB local, por exemplo:
+
+```dotenv
+MONGO_URI=mongodb://127.0.0.1:27017/news-explorer
+```
+
+Em producao, configure a conexao nas variaveis protegidas do provedor de
+hospedagem antes do deploy. A aplicacao encerra a inicializacao se `MONGO_URI`
+estiver ausente, vazia ou contiver apenas espacos. Nunca inclua credenciais no
+codigo ou em arquivos versionados. Credenciais anteriormente expostas precisam
+ser revogadas ou trocadas no MongoDB Atlas; remover do codigo nao as invalida.
 
 ## Autorizacao
 Rotas protegidas exigem header:
@@ -91,3 +105,4 @@ Os logs sao gravados em:
 - `middlewares/` auth, logger e handler de erros
 - `errors/` classes de erro customizadas
 - `index.js` ponto de entrada
+
